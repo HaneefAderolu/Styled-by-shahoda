@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>styled by Shahoda</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Karla:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f3eee6;--card:#faf7f2;--ink:#1d1a17;--mut:#756c62;--acc:#7a2e2e;--line:#d9d0c3;--wa:#1faa59;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171412;--card:#1f1b18;--ink:#efe8de;--mut:#a0958a;--acc:#d08a7e;--line:#352e29;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171412;--card:#1f1b18;--ink:#efe8de;--mut:#a0958a;--acc:#d08a7e;--line:#352e29;color-scheme:dark}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Karla,"Helvetica Neue",Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,h3,.mark{font-family:"Gilda Display",Georgia,serif;font-weight:400;margin:0}
+.burger{visibility:hidden}
+button{font:inherit;cursor:pointer;border:0;color:inherit;background:none;padding:0}
+a{color:inherit}
+.top{background:var(--ink);color:var(--bg);text-align:center;font-size:13px;padding:7px 12px;letter-spacing:.03em}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{max-width:1240px;margin:auto;padding:14px 24px 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.mark{font-size:30px;text-align:center;letter-spacing:.01em;line-height:1.1}
+.mark small{display:block;font:500 11px Karla,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.cartbtn{justify-self:end;font-weight:500;border-bottom:1px solid var(--ink);padding-bottom:1px}
+.nav{max-width:1240px;margin:auto;padding:0 24px;display:flex;gap:26px;justify-content:center;overflow-x:auto;scrollbar-width:none}
+.nav button{padding:14px 0 12px;font-size:14px;letter-spacing:.04em;white-space:nowrap;color:var(--mut);border-bottom:2px solid transparent}
+.nav button.on{color:var(--ink);border-color:var(--acc)}
+.hero{max-width:1240px;margin:0 auto;padding:44px 24px 36px;display:grid;grid-template-columns:5fr 7fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(40px,5.6vw,68px);line-height:1.04}
+.hero p{color:var(--mut);max-width:400px;margin:18px 0 26px}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);padding:14px 30px;text-decoration:none;font-weight:500;letter-spacing:.04em;font-size:14px}
+.btn:hover{background:var(--acc)}
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.tiles img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}.tiles img:nth-child(2){margin-top:34px}
+.how{border-block:1px solid var(--line)}
+.how div{max-width:1240px;margin:auto;padding:16px 24px;display:flex;gap:10px 40px;flex-wrap:wrap;justify-content:center;font-size:14px;color:var(--mut)}
+.how b{color:var(--ink);font-weight:700;margin-right:6px}
+main{max-width:1240px;margin:auto;padding:34px 24px 20px}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.tools h2{font-size:30px}.tools h2 span{font:14px Karla,sans-serif;color:var(--mut);margin-left:8px}
+.ctl{display:flex;gap:12px;flex-wrap:wrap}
+input,select{padding:9px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;border-radius:0}
+input{width:200px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 20px}
+.im{position:relative;aspect-ratio:4/5;overflow:hidden;cursor:pointer;background:var(--line)}
+.im img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}.card:hover .im img{transform:scale(1.04)}
+.tag{position:absolute;left:10px;top:10px;background:var(--card);color:var(--ink);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px}
+.qv{position:absolute;left:0;right:0;bottom:0;background:rgba(29,26,23,.85);color:#fff;text-align:center;font-size:13px;padding:9px;transform:translateY(100%);transition:transform .25s}.card:hover .qv{transform:none}
+.nm{margin-top:12px;font-size:16px;cursor:pointer;line-height:1.3}
+.sub{display:flex;justify-content:space-between;align-items:baseline;margin-top:5px;font-size:14px}
+.sub span{color:var(--mut)}
+.add{font-size:13px;font-weight:700;border-bottom:1px solid currentColor;margin-top:8px;letter-spacing:.03em}.add:hover{color:var(--acc)}
+.empty{text-align:center;color:var(--mut);padding:60px 0;display:none}
+.contact{max-width:1240px;margin:50px auto 0;padding:0 24px}
+.contact div{border:1px solid var(--line);padding:44px 24px;text-align:center}
+.contact h2{font-size:34px;margin-bottom:8px}.contact p{color:var(--mut);margin:0 auto 22px;max-width:440px}
+.wabtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--wa);color:#fff;padding:13px 26px;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:.03em}
+.wabtn:hover{filter:brightness(.92)}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:30px 20px 100px}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:25}
+.fab svg{width:29px;height:29px;fill:#fff}
+.ov{position:fixed;inset:0;background:rgba(20,15,12,.5);opacity:0;pointer-events:none;transition:.25s;z-index:40}.ov.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--bg);z-index:50;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.show{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}.dh h2{font-size:26px}
+.x{font-size:28px;line-height:1;padding:2px 8px}
+.items{flex:1;overflow:auto;padding:6px 22px}
+.it{display:grid;grid-template-columns:68px 1fr auto;gap:14px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line);font-size:15px}
+.it img{width:68px;height:84px;object-fit:cover}.it small{color:var(--mut)}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);margin-top:8px}.qty button{width:28px;height:28px}.qty span{min-width:26px;text-align:center;font-size:14px}
+.rm{color:var(--mut);font-size:12px;text-decoration:underline}
+.df{padding:16px 22px;border-top:1px solid var(--line);display:grid;gap:12px}
+.tot{display:flex;justify-content:space-between;font-size:18px;font-weight:700}
+.note{font-size:12px;color:var(--mut);margin:-4px 0 0}.clr{color:var(--mut);font-size:13px;text-decoration:underline}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-47%);opacity:0;pointer-events:none;transition:.25s;z-index:60;width:min(860px,calc(100% - 28px));max-height:calc(100% - 40px);overflow:auto;background:var(--bg);display:grid;grid-template-columns:1fr 1fr}
+.modal.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.modal img{width:100%;height:100%;object-fit:cover;display:block;min-height:300px}
+.md{padding:34px 28px;display:flex;flex-direction:column;gap:12px;position:relative}.md h2{font-size:34px;line-height:1.1}.md .x{position:absolute;right:12px;top:8px}
+.md p{color:var(--mut);margin:0}.price{font-size:20px}.cap{font-size:13px;line-height:1.6;color:var(--mut);margin:4px 0 8px}.cat{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.md .btn{border:0;text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translate(-50%,14px);background:var(--ink);color:var(--bg);padding:10px 22px;font-size:14px;opacity:0;transition:.3s;z-index:70;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr;gap:28px}}
+@media(max-width:640px){.grid{grid-template-columns:repeat(2,1fr);gap:26px 12px}.modal{grid-template-columns:1fr}.modal img{min-height:220px;max-height:280px}.nav{justify-content:flex-start;gap:20px}.mark{font-size:24px}.bar{padding:12px 16px 0}.nav,.hero,main,.contact{padding-left:16px;padding-right:16px}input{width:150px}.tiles img:nth-child(2){margin-top:20px}
+.burger{visibility:visible;justify-self:start;padding:4px 4px 4px 0}.bar{padding-bottom:12px}
+.nav{position:fixed;top:0;left:0;bottom:0;width:min(300px,82%);background:var(--bg);z-index:50;flex-direction:column;justify-content:flex-start;gap:0;padding:calc(env(safe-area-inset-top,0px) + 22px) 22px 20px;transform:translateX(-100%);transition:transform .3s;overflow-y:auto;border-right:1px solid var(--line)}
+.nav.open{transform:none}
+.nav::before{content:"Shop by type";font:500 11px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.nav button{font:22px "Gilda Display",Georgia,serif;letter-spacing:0;padding:15px 0;border-bottom:1px solid var(--line);text-align:left;color:var(--ink)}
+.nav button.on{color:var(--acc);border-bottom-color:var(--line)}}
+</style>
+</head>
+<body>
+<div class="top">Order directly on WhatsApp. We reply the same day.</div>
+<header>
+<div class="bar"><button class="burger" id="burger" aria-label="Open menu"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button><div class="mark"><small>styled by</small>Shahoda</div><button class="cartbtn" id="openCart">Cart (<span id="cnt">0</span>)</button></div>
+<nav class="nav" id="nav"></nav>
+</header>
+
+<section class="hero">
+<div>
+<h1>Watches, bangles, bracelets and necklaces.</h1>
+<p>Browse the collection, add what you like to your cart, then send it to us on WhatsApp and we will sort out the rest.</p>
+<a class="btn" href="#shop">View the collection</a>
+</div>
+<div class="tiles" id="tiles"></div>
+</section>
+
+<section class="how"><div>
+<span><b>1.</b>Pick your pieces</span><span><b>2.</b>Add them to the cart</span><span><b>3.</b>Send your cart to us on WhatsApp</span>
+</div></section>
+
+<main id="shop">
+<div class="tools"><h2 id="ttl">All jewellery<span id="num"></span></h2>
+<div class="ctl"><input id="q" type="search" placeholder="Search" aria-label="Search">
+<select id="sort" aria-label="Sort"><option value="0">Sort: Featured</option><option value="1">Price, low to high</option><option value="2">Price, high to low</option><option value="3">Name, A to Z</option></select></div></div>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty">Nothing matches that search.</div>
+</main>
+
+<section class="contact"><div>
+<h2>Looking for something specific?</h2>
+<p>Tell us what you have in mind, a size, a colour or a gift, and we will help you find it.</p>
+<a class="wabtn" id="waAbout" target="_blank" rel="noopener">Message us on WhatsApp</a>
+</div></section>
+<footer>© 2026 styled by Shahoda</footer>
+
+<a class="fab" id="fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11 19.8L3 29l6.4-2A13 13 0 1 0 16 3zm0 2.4a10.6 10.6 0 1 1-5.6 19.6l-.4-.2-3.800 1.200 1.200-3.700-.3-.4A10.600 10.600 0 0 1 16 5.400zm-4 5.200c-.3 0-.8.100-1.200.6-.4.500-1.500 1.500-1.500 3.600s1.500 4.100 1.700 4.400c.2.300 3 4.700 7.300 6.400 3.600 1.400 4.300 1.100 5.100 1 .8-.1 2.500-1 2.800-2 .4-1 .4-1.800.2-2-.1-.2-.4-.3-.9-.6l-2.800-1.300c-.4-.2-.7-.2-1 .2l-1.200 1.500c-.2.300-.5.300-.9.100-.4-.2-1.800-.7-3.400-2.100-1.300-1.100-2.100-2.500-2.400-2.900-.2-.4 0-.6.200-.8l.6-.7c.2-.2.300-.4.400-.7.100-.3.100-.5 0-.7l-1.300-3.100c-.3-.8-.7-.7-1-.7z"/></svg></a>
+
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer" aria-label="Cart">
+<div class="dh"><h2>Your cart</h2><button class="x" id="closeCart" aria-label="Close">×</button></div>
+<div class="items" id="items"></div>
+<div class="df" id="df"><div class="tot"><span>Total</span><span id="tot"></span></div>
+<a class="wabtn" id="send" target="_blank" rel="noopener">Send order on WhatsApp</a>
+<p class="note">Nothing is charged here. We confirm prices, sizes and payment with you on WhatsApp.</p>
+<button class="clr" id="clear">Clear cart</button></div>
+</aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ====== EDIT THESE ======
+const WA_NUMBER = "201208723767";   // country code + number, digits only
+const CURRENCY = "ج.م";   // جنيه مصري
+// To use a real photo, set the product's img field (last item in its row) to the image URL or data URI.
+// ========================
+const P = [{"id": 0, "name": "Oval leather watches, 5 colours", "cat": "Watches", "price": 160, "desc": "\u0643\u0648\u0644\u0643\u0634\u0646 \u0633\u0627\u0639\u0627\u0627\u0627\u062a<br>\u0661\u0666\u0660 \u0628\u0633\u0633\u0633", "badge": "", "img": "images/01.jpg", "cap": 1}, {"id": 1, "name": "Burgundy leather watches", "cat": "Watches", "price": 160, "desc": "\u0643\u0648\u0644\u0643\u0634\u0646 \u0633\u0627\u0639\u0627\u0627\u0627\u062a<br>\u0661\u0666\u0660 \u0628\u0633\u0633\u0633", "badge": "", "img": "images/02.jpg", "cap": 1}, {"id": 2, "name": "Black leather watches", "cat": "Watches", "price": 160, "desc": "\u0643\u0648\u0644\u0643\u0634\u0646 \u0633\u0627\u0639\u0627\u0627\u0627\u062a<br>\u0661\u0666\u0660 \u0628\u0633\u0633\u0633", "badge": "", "img": "images/03.jpg", "cap": 1}, {"id": 3, "name": "Oval watches, choose your strap", "cat": "Watches", "price": 160, "desc": "\u0643\u0648\u0644\u0643\u0634\u0646 \u0633\u0627\u0639\u0627\u0627\u0627\u062a<br>\u0661\u0666\u0660 \u0628\u0633\u0633\u0633", "badge": "", "img": "images/04.jpg", "cap": 1}, {"id": 4, "name": "Steel link watches, gold and silver", "cat": "Watches", "price": 330, "desc": "\u0633\u0627\u0639\u0627\u062a \u0631\u0648\u0644\u0643\u0633 \u0633\u0627\u0639\u0627\u062a \u0627\u0644\u0645\u0634\u0627\u0647\u064a\u0631<br>\u0648 \u0633\u0627\u0639\u062a\u0646\u0627 \u0645\u0634 \u0632\u064a \u0627\u064a \u0633\u0627\u0639\u0647 \u0631\u0648\u0644\u0643\u0633 \u0641\u064a \u0633\u0648\u0642 \u0633\u0627\u0639\u062a\u0646\u0627 \u0627\u0633\u062a\u0627\u0646\u0644\u064a\u0633 \u0628\u064a\u0648\u0631 \u0648 \u0646\u062a\u064a\u062c\u0647 \u0643\u0645\u0627\u0646 \u0634\u063a\u0627\u0644\u0647<br>\u0627\u0644\u0633\u0627\u0639\u0647 \u0627\u0633\u062a\u0627\u0646\u0644\u064a\u0633 \u0628\u0627\u0644\u0643\u0627\u0645\u0644<br>\u062e\u062a\u0645 \u0639\u0644\u064a \u0627\u0644\u0642\u0641\u0644<br>\u0646\u062a\u064a\u062c\u0629 \u062a\u0639\u0645\u0644<br>\u0636\u0645\u0627\u0646 \u0636\u062f \u062a\u063a\u064a\u0631 \u0627\u0644\u0644\u0648\u0646<br>\u0633\u0639\u0631 \u0627\u0644\u0642\u0637\u0639\u0629: \u0663\u0663\u0660<br>\u0645\u0644\u062d\u0648\u0638\u0629 \u0627\u0644\u0633\u0639\u0631 \u063a\u064a\u0631 \u0634\u0627\u0645\u0644 \u0627\u0644\u0627\u0646\u0633\u064a\u0627\u0644\u0627\u062a", "badge": "", "img": "images/05.jpg", "cap": 1}, {"id": 5, "name": "Two tone steel watch", "cat": "Watches", "price": 330, "desc": "\u0633\u0627\u0639\u0627\u062a \u0631\u0648\u0644\u0643\u0633 \u0633\u0627\u0639\u0627\u062a \u0627\u0644\u0645\u0634\u0627\u0647\u064a\u0631<br>\u0648 \u0633\u0627\u0639\u062a\u0646\u0627 \u0645\u0634 \u0632\u064a \u0627\u064a \u0633\u0627\u0639\u0647 \u0631\u0648\u0644\u0643\u0633 \u0641\u064a \u0633\u0648\u0642 \u0633\u0627\u0639\u062a\u0646\u0627 \u0627\u0633\u062a\u0627\u0646\u0644\u064a\u0633 \u0628\u064a\u0648\u0631 \u0648 \u0646\u062a\u064a\u062c\u0647 \u0643\u0645\u0627\u0646 \u0634\u063a\u0627\u0644\u0647<br>\u0627\u0644\u0633\u0627\u0639\u0647 \u0627\u0633\u062a\u0627\u0646\u0644\u064a\u0633 \u0628\u0627\u0644\u0643\u0627\u0645\u0644<br>\u062e\u062a\u0645 \u0639\u0644\u064a \u0627\u0644\u0642\u0641\u0644<br>\u0646\u062a\u064a\u062c\u0629 \u062a\u0639\u0645\u0644<br>\u0636\u0645\u0627\u0646 \u0636\u062f \u062a\u063a\u064a\u0631 \u0627\u0644\u0644\u0648\u0646<br>\u0633\u0639\u0631 \u0627\u0644\u0642\u0637\u0639\u0629: \u0663\u0663\u0660<br>\u0645\u0644\u062d\u0648\u0638\u0629 \u0627\u0644\u0633\u0639\u0631 \u063a\u064a\u0631 \u0634\u0627\u0645\u0644 \u0627\u0644\u0627\u0646\u0633\u064a\u0627\u0644\u0627\u062a", "badge": "", "img": "images/06.jpg", "cap": 1}, {"id": 6, "name": "Gold bracelet watches", "cat": "Watches", "price": 200, "desc": "Small square and octagon watches on a ribbed gold strap, with different dial colours.", "badge": "", "img": "images/07.jpg"}, {"id": 7, "name": "Flower charm necklace", "cat": "Necklaces", "price": 115, "desc": "A gold chain with a coin charm and a small yellow flower. Comes in a gift box.", "badge": "", "img": "images/08.jpg"}, {"id": 8, "name": "Knot chain necklaces", "cat": "Necklaces", "price": 110, "desc": "\u0637\u0642\u0645 \u0643\u0627\u0628\u0644\u0632 \u0627\u0633\u062a\u0627\u0646\u0644\u064a\u0633 \u0628\u064a\u0648\u0631 \u0627\u0644\u0633\u0639\u0631 110\u062c", "badge": "", "img": "images/09.jpg", "cap": 1}, {"id": 9, "name": "Layered heart necklace", "cat": "Necklaces", "price": 150, "desc": "NEW COMBO<br>Material: Stainlesssteel pure<br>150 LE", "badge": "", "img": "images/10.jpg", "cap": 1}, {"id": 10, "name": "Layered butterfly necklace", "cat": "Necklaces", "price": 185, "desc": "Herringbone and rope chains layered with a fine chain and a mother of pearl butterfly.", "badge": "", "img": "images/11.jpg"}, {"id": 11, "name": "Sun and bar lariat necklace", "cat": "Necklaces", "price": 160, "desc": "A gold sun pendant with a long drop that you can slide to adjust.", "badge": "", "img": "images/12.jpg"}, {"id": 12, "name": "Layered heart necklaces", "cat": "Necklaces", "price": 185, "desc": "Fine chains with gold and white inlay hearts, made to be worn together.", "badge": "", "img": "images/13.jpg"}, {"id": 13, "name": "Layered sun necklace", "cat": "Necklaces", "price": 170, "desc": "A sun pendant with a bead chain and a rope chain, layered together.", "badge": "", "img": "images/14.jpg"}, {"id": 14, "name": "Red crystal leaf necklace", "cat": "Necklaces", "price": 120, "desc": "\u0633\u0644\u0633\u0644\u0647 \u0627\u0633\u062a\u0644\u0633 \u0628 \u062f\u0644\u0627\u064a\u0647 \u062c\u0648\u0644\u062f \u0628\u0644\u064a\u062a\u062f 120", "badge": "", "img": "images/15.jpg", "cap": 1}, {"id": 15, "name": "Crystal leaf necklaces, 4 colours", "cat": "Necklaces", "price": 120, "desc": "\u0633\u0644\u0633\u0644\u0647 \u0627\u0633\u062a\u0644\u0633 \u0628 \u062f\u0644\u0627\u064a\u0647 \u062c\u0648\u0644\u062f \u0628\u0644\u064a\u062a\u062f 120", "badge": "", "img": "images/16.jpg", "cap": 1}, {"id": 16, "name": "Blue crystal leaf necklace", "cat": "Necklaces", "price": 120, "desc": "\u0633\u0644\u0633\u0644\u0647 \u0627\u0633\u062a\u0644\u0633 \u0628 \u062f\u0644\u0627\u064a\u0647 \u062c\u0648\u0644\u062f \u0628\u0644\u064a\u062a\u062f 120", "badge": "", "img": "images/17.jpg", "cap": 1}, {"id": 17, "name": "Green crystal leaf necklace", "cat": "Necklaces", "price": 120, "desc": "\u0633\u0644\u0633\u0644\u0647 \u0627\u0633\u062a\u0644\u0633 \u0628 \u062f\u0644\u0627\u064a\u0647 \u062c\u0648\u0644\u062f \u0628\u0644\u064a\u062a\u062f 120", "badge": "", "img": "images/18.jpg", "cap": 1}, {"id": 18, "name": "Clear crystal leaf necklace", "cat": "Necklaces", "price": 120, "desc": "\u0633\u0644\u0633\u0644\u0647 \u0627\u0633\u062a\u0644\u0633 \u0628 \u062f\u0644\u0627\u064a\u0647 \u062c\u0648\u0644\u062f \u0628\u0644\u064a\u062a\u062f 120", "badge": "", "img": "images/19.jpg", "cap": 1}, {"id": 19, "name": "Layered chains with dark stone", "cat": "Necklaces", "price": 170, "desc": "\u0643\u0648\u0645\u0628\u0648 \u0633\u0644\u0627\u0633\u0644<br>170", "badge": "", "img": "images/20.jpg", "cap": 1}, {"id": 20, "name": "Pearl tail pendant necklace", "cat": "Necklaces", "price": 90, "desc": "New Collection<br>Pure stainless steel<br>price 90", "badge": "", "img": "images/21.jpg", "cap": 1}, {"id": 21, "name": "Flat mesh chain necklace", "cat": "Necklaces", "price": 220, "desc": "New Collection<br>stainless steel<br>price 220", "badge": "", "img": "images/22.jpg", "cap": 1}, {"id": 22, "name": "Flower and bar charm necklace, yellow", "cat": "Necklaces", "price": 165, "desc": "\u0648\u0635\u0644 \u0648\u0635\u0644 \u0627\u0644\u062a\u0631\u064a\u0646\u062f\u0627\u0627\u0627\u062a<br>\u0627\u0644\u0633\u0644\u0633\u0644\u0647 \u0627\u0644\u0644\u064a \u0642\u0627\u0644\u0628\u0647 \u0627\u0644\u062f\u0646\u064a\u0627 \u0648\u0635\u0644\u062a \u0627\u0644\u062d\u0645\u062f\u0644\u0644\u0647 \u0648\u0628\u0643\u0645\u064a\u0627\u062a \u0632\u064a \u0645\u0627\u0637\u0644\u0628\u062a\u0648<br>\u062a\u062d\u0641\u0647 \u0627\u0648\u064a \u0648\u0643\u0645\u0627\u0646 \u0645\u0636\u064a\u0626\u0647 \u0641 \u0627\u0644\u0636\u0644\u0645\u0647<br>\u0643\u0644 \u0627\u0644\u0645\u0645\u064a\u0632\u0627\u062a \u062f\u064a \u0648 \u0628 \u0661\u0666\u0665\u062c \u0628\u0633\u0633", "badge": "", "img": "images/23.jpg", "cap": 1}, {"id": 23, "name": "Flower and bar charm necklace", "cat": "Necklaces", "price": null, "desc": "A flower and bar charm on a fine gold chain, shown in the tray.", "badge": "", "img": "images/24.jpg"}, {"id": 24, "name": "Flower and bar charm necklace, white", "cat": "Necklaces", "price": 150, "desc": "\u0627\u062d\u0646\u0627 \u0628\u0641\u0636\u0644 \u0627\u0644\u0644\u0647 \u062c\u0627\u064a\u0628\u064a\u0646 \u0645\u0646 \u0627\u0644\u062d\u0644\u0648\u064a\u0627\u062a \u062f\u064a \u0663 \u0627\u0634\u0643\u0627\u0644<br>\u0648\u062f\u0627 \u0627\u0644\u0634\u0643\u0644 \u0627\u0644\u062a\u0627\u0646\u064a \u0627\u0644\u0642\u0645\u0631<br>\u0648\u0628 \u0661\u0665\u0660\u062c \u0628\u0633\u0633", "badge": "", "img": "images/25.jpg", "cap": 1}, {"id": 25, "name": "White flower and bar necklace", "cat": "Necklaces", "price": null, "desc": "A white flower and an engraved bar charm on a gold chain.", "badge": "", "img": "images/26.jpg"}, {"id": 26, "name": "Yellow flower necklace", "cat": "Necklaces", "price": null, "desc": "A yellow flower charm with a small round tag on a gold chain.", "badge": "", "img": "images/27.jpg"}, {"id": 27, "name": "Yellow flower necklace, long chain", "cat": "Necklaces", "price": 125, "desc": "\u0648\u062f\u0627 \u0627\u062e\u0631 \u0634\u0643\u0644 \u0645\u0639\u0627\u0646\u0627 \u0648\u0639\u0645\u0644\u0627\u0644\u0643\u0648 \u0639\u0644\u064a\u0647 \u0639\u0631\u0636<br>\u0628\u0661\u0662\u0665\u0628\u062f\u0644 \u0661\u0664\u0660", "badge": "", "img": "images/28.jpg", "cap": 1}, {"id": 28, "name": "Sun pendant necklace", "cat": "Necklaces", "price": 90, "desc": "\u0669\u0660", "badge": "", "img": "images/29.jpg", "cap": 1}, {"id": 29, "name": "Butterfly drop necklace", "cat": "Necklaces", "price": 125, "desc": "\u0627\u0644\u0633\u0644\u0633\u0644\u0647 \u0627\u0644\u0642\u0645\u0631 \u062f\u064a \u0645\u0646\u0647\u0627 \u0627\u0644\u0627\u0633\u0648\u062f \u0648\u0627\u0644\u0627\u0628\u064a\u0636<br>\u0628\u0661\u0662\u0665\u062c", "badge": "", "img": "images/30.jpg", "cap": 1}, {"id": 30, "name": "Butterfly drop necklace, white", "cat": "Necklaces", "price": 125, "desc": "\u0627\u0644\u0633\u0644\u0633\u0644\u0647 \u0627\u0644\u0642\u0645\u0631 \u062f\u064a \u0645\u0646\u0647\u0627 \u0627\u0644\u0627\u0633\u0648\u062f \u0648\u0627\u0644\u0627\u0628\u064a\u0636<br>\u0628\u0661\u0662\u0665\u062c", "badge": "", "img": "images/31.jpg", "cap": 1}, {"id": 31, "name": "Two chain heart necklace", "cat": "Necklaces", "price": null, "desc": "Two fine gold chains with small hearts, one with a long drop.", "badge": "", "img": "images/32.jpg"}, {"id": 32, "name": "Two chain heart necklace, white heart", "cat": "Necklaces", "price": 120, "desc": "\u0627\u0644\u062d\u0644\u0648\u064a\u0627\u062a \u062f\u064a \u0628 \u0661\u0662\u0660\u062c \u0628\u0633\u0633", "badge": "", "img": "images/33.jpg", "cap": 1}, {"id": 33, "name": "Triple heart necklace", "cat": "Necklaces", "price": null, "desc": "Two fine gold chains with three small hearts.", "badge": "", "img": "images/34.jpg"}, {"id": 34, "name": "Herringbone and star chain necklace", "cat": "Necklaces", "price": null, "desc": "A flat herringbone chain layered with a fine chain and small star charms.", "badge": "", "img": "images/35.jpg"}, {"id": 35, "name": "Chunky link chain necklace", "cat": "Necklaces", "price": 90, "desc": "\u0627\u0644\u0627\u0646\u0633\u064a\u0627\u0644 \u062a\u062d\u0641\u0647 \u0627\u0644\u062a\u064a\u0641\u0627\u0646\u064a<br>\u0628\u0669\u0660\u062c \u0628\u0633", "badge": "", "img": "images/36.jpg", "cap": 1}, {"id": 36, "name": "Chunky link necklace, long", "cat": "Necklaces", "price": 120, "desc": "\u0627\u0644\u0633\u0644\u0633\u0644\u0647 \u0627\u0644\u062a\u064a\u0641\u0627\u0646\u064a \u0661\u0662\u0660\u062c \u0628\u0633", "badge": "", "img": "images/37.jpg", "cap": 1}, {"id": 37, "name": "Gold bar pendant necklaces", "cat": "Necklaces", "price": null, "desc": "1 \u0633\u0644\u0633\u0644\u0647 \u0627\u0644\u0633\u0628\u064a\u0643\u0647 \u0627\u0644\u062f\u0647\u0628 \u0627\u0644\u0643\u0628\u064a\u0631\u0647 \u0639\u0644\u0649 \u0633\u0644\u0633\u0644\u0647 \u0645\u062c\u062f\u0648\u0644 \u0637\u0648\u0644\u0647\u0627 60 \u0633\u0646\u062a\u064a \u0628 115<br>2 \u0639\u0644\u0649 \u0633\u0644\u0633\u0644\u0647 \u0632\u064a\u0631\u0648 \u0628 90", "badge": "", "img": "images/38.jpg", "cap": 1}, {"id": 38, "name": "Long gold bar necklace", "cat": "Necklaces", "price": null, "desc": "A long fine chain with a gold bar pendant.", "badge": "", "img": "images/39.jpg"}, {"id": 39, "name": "Gold bar pendant, rope chain", "cat": "Necklaces", "price": 115, "desc": "1 \u0633\u0644\u0633\u0644\u0647 \u0627\u0644\u0633\u0628\u064a\u0643\u0647 \u0627\u0644\u062f\u0647\u0628 \u0627\u0644\u0643\u0628\u064a\u0631\u0647 \u0639\u0644\u0649 \u0633\u0644\u0633\u0644\u0647 \u0645\u062c\u062f\u0648\u0644 \u0637\u0648\u0644\u0647\u0627 60 \u0633\u0646\u062a\u064a \u0628 115", "badge": "", "img": "images/40.jpg", "cap": 1}, {"id": 40, "name": "Gold bar pendant, fine chain", "cat": "Necklaces", "price": 90, "desc": "2 \u0639\u0644\u0649 \u0633\u0644\u0633\u0644\u0647 \u0632\u064a\u0631\u0648 \u0628 90", "badge": "", "img": "images/41.jpg", "cap": 1}, {"id": 41, "name": "Layered gold chains", "cat": "Necklaces", "price": 190, "desc": "Several gold chains with small charms, to wear together.", "badge": "", "img": "images/42.jpg"}, {"id": 42, "name": "Star pendant necklaces", "cat": "Necklaces", "price": 85, "desc": "A gold four point star pendant with a small star, on a fine chain. Three finishes shown.", "badge": "", "img": "images/43.jpg"}, {"id": 43, "name": "Layered oval and sun necklace", "cat": "Necklaces", "price": 210, "desc": "A herringbone chain layered with an oval stone pendant and a sun pendant.", "badge": "", "img": "images/44.jpg"}, {"id": 44, "name": "Heart and clover bracelets", "cat": "Bracelets", "price": 180, "desc": "Gold chain bracelets with heart and clover charms in black and white. Good for stacking.", "badge": "", "img": "images/45.jpg"}, {"id": 45, "name": "Black clover chain bracelet", "cat": "Bracelets", "price": 130, "desc": "A gold paperclip chain with four black clover charms.", "badge": "", "img": "images/46.jpg"}, {"id": 46, "name": "Gold chain bracelets", "cat": "Bracelets", "price": 260, "desc": "A mix of gold chain bracelets: clover charms, links, herringbone, rope and mesh.", "badge": "", "img": "images/47.jpg"}, {"id": 47, "name": "Link and emerald bracelets", "cat": "Bracelets", "price": 275, "desc": "Gold link and mesh bracelets, including one with a small green stone.", "badge": "", "img": "images/48.jpg"}, {"id": 48, "name": "Heart and mesh bracelet set", "cat": "Bracelets", "price": 245, "desc": "Mesh, black heart, twisted and bead chain bracelets in gold. Sold together or one by one.", "badge": "", "img": "images/49.jpg"}, {"id": 49, "name": "Link bracelet, black and silver", "cat": "Bracelets", "price": 270, "desc": "\u0644\u0627\u0643\u0648\u0633\u062a \u0627\u0646\u0633\u064a\u0627\u0644 270 \u0628\u0633\u0633", "badge": "", "img": "images/50.jpg", "cap": 1}, {"id": 50, "name": "Gold leaf bracelet", "cat": "Bracelets", "price": 80, "desc": "Stainless bracelet for 80 instead of 100", "badge": "", "img": "images/51.jpg", "cap": 1}, {"id": 51, "name": "Layered chain bracelet", "cat": "Bracelets", "price": 120, "desc": "3 roles for 120", "badge": "", "img": "images/52.jpg", "cap": 1}, {"id": 52, "name": "Gold bracelet stack with heart", "cat": "Bracelets", "price": 210, "desc": "Mesh, twisted and bead chain bracelets in gold, with a small heart charm.", "badge": "", "img": "images/53.jpg"}, {"id": 53, "name": "Chain and clover bracelets", "cat": "Bracelets", "price": 300, "desc": "Mesh, paperclip, rope and black clover bracelets in gold.", "badge": "", "img": "images/54.jpg"}, {"id": 54, "name": "Gold paperclip bracelet stack", "cat": "Bracelets", "price": 195, "desc": "Paperclip, herringbone and charm bracelets in gold. Sold one by one.", "badge": "", "img": "images/55.jpg"}, {"id": 55, "name": "Crystal and mesh bracelet stack", "cat": "Bracelets", "price": 300, "desc": "A crystal tennis bracelet with mesh and chunky chain bracelets.", "badge": "", "img": "images/56.jpg"}, {"id": 56, "name": "Mesh and clover bracelets", "cat": "Bracelets", "price": 195, "desc": "Gold mesh bracelets and a fine clover bracelet.", "badge": "", "img": "images/57.jpg"}, {"id": 57, "name": "Engraved bangles, silver and gold", "cat": "Bangles and Cuffs", "price": 90, "desc": "\u0627\u0633\u0648\u0631\u0647 \u0627\u064a\u0647 \u0627\u0644\u0643\u0631\u0633\u064a \u0627\u0633\u0648\u062f \u0648\u0633\u064a\u0644\u0641\u0631 \u0648\u062c\u0648\u0644\u062f \u0627\u0633\u062a\u0627\u0646\u0644\u064a\u0633 \u0628\u064a\u0648\u0631 \u0627\u0644\u0633\u0639\u0631 90\u062c", "badge": "", "img": "images/58.jpg", "cap": 1}, {"id": 58, "name": "Cuffs and knot bangles", "cat": "Bangles and Cuffs", "price": 250, "desc": "\u0637\u0642\u0645 \u0643\u0627\u0628\u0644\u0632 4 \u0642\u0637\u0639 \u0627\u0633\u062a\u0627\u0646\u0644\u064a\u0633 \u0628\u064a\u0648\u0631 \u0628250 \u0628\u062f\u0644 290\u062c", "badge": "", "img": "images/59.jpg", "cap": 1}, {"id": 59, "name": "Crystal bangle and bamboo cuff", "cat": "Bangles and Cuffs", "price": 140, "desc": "140", "badge": "Best seller", "img": "images/60.jpg", "cap": 1}, {"id": 60, "name": "Screw bangles and crystal bangle", "cat": "Bangles and Cuffs", "price": 200, "desc": "Gold bangles with a screw detail, and an open bangle set with crystals.", "badge": "", "img": "images/61.jpg"}, {"id": 61, "name": "Starburst ring", "cat": "Rings", "price": 65, "desc": "\u062e\u0627\u062a\u0645 \u0646\u062c\u0645\u0647 \u0627\u0644\u0634\u0645\u0627\u0644 \u0641\u0631\u064a \u0633\u0627\u064a\u0632<br>65", "badge": "", "img": "images/62.jpg", "cap": 1}, {"id": 62, "name": "Bow stud earrings", "cat": "Earrings", "price": 65, "desc": "Small gold bow studs on a stainless steel card.", "badge": "", "img": "images/63.jpg"}, {"id": 63, "name": "Bow stud earrings, gold", "cat": "Earrings", "price": 65, "desc": "Gold bow studs. Stainless steel.", "badge": "", "img": "images/64.jpg"}, {"id": 64, "name": "Gold hand chain", "cat": "Hand Chains", "price": 115, "desc": "A fine gold bead chain that links the wrist to the ring finger. Adjustable.", "badge": "", "img": "images/65.jpg"}, {"id": 65, "name": "Monogram necklace and ring set", "cat": "Sets", "price": 130, "desc": "An oval pendant and matching signet ring, both edged with small crystals.", "badge": "", "img": "images/66.jpg"}, {"id": 66, "name": "Crystal necklace and ring set", "cat": "Sets", "price": 155, "desc": "A crystal drop necklace with a matching crystal ring.", "badge": "", "img": "images/67.jpg"}, {"id": 67, "name": "Crystal necklace and bracelet set", "cat": "Sets", "price": 200, "desc": "A crystal V necklace with a matching wavy crystal bracelet.", "badge": "", "img": "images/68.jpg"}, {"id": 68, "name": "Link chain necklace and bracelet set", "cat": "Sets", "price": 190, "desc": "\u0627\u0644\u0637\u0642\u0645 \u0627\u0644\u062a\u064a\u0641\u0627\u0646\u064a \u0661\u0669\u0660\u062c", "badge": "", "img": "images/69.jpg", "cap": 1}, {"id": 69, "name": "Bow earrings and necklace set", "cat": "Sets", "price": 145, "desc": "\u0637\u0642\u0645 \u0627\u0644\u0641\u064a\u0648\u0646\u0643\u0647 \u0627\u0633\u062a\u0627\u0646\u0644\u0633<br>145", "badge": "", "img": "images/70.jpg", "cap": 1}, {"id": 70, "name": "Bow earrings and necklace, long chain", "cat": "Sets", "price": 145, "desc": "\u0637\u0642\u0645 \u0627\u0644\u0641\u064a\u0648\u0646\u0643\u0647 \u0627\u0633\u062a\u0627\u0646\u0644\u0633<br>145", "badge": "", "img": "images/71.jpg", "cap": 1}];
+// Pieces without a price number show "Price on WhatsApp".
+P.forEach(p=>p.src=p.img);
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString("en-US")+" "+CURRENCY;
+const pt=p=>p.price?fmt(p.price):"Price on WhatsApp";
+
+let cart={},cat="All",term="",sort="0";
+try{cart=JSON.parse(localStorage.getItem("shohada-cart")||"{}")||{}}catch(e){cart={}}
+const save=()=>{try{localStorage.setItem("shohada-cart",JSON.stringify(cart))}catch(e){}};
+const waLink=t=>"https://wa.me/"+WA_NUMBER+(t?"?text="+encodeURIComponent(t):"");
+
+const cats=["All",...new Set(P.map(p=>p.cat))];
+$("#nav").innerHTML=cats.map(c=>`<button data-c="${c}" class="${c==="All"?"on":""}">${c==="All"?"Everything":c}</button>`).join("");
+$("#tiles").innerHTML=["Watches","Bangles and Cuffs","Necklaces"].map(c=>P.findIndex(x=>x.cat===c)).map(i=>`<img src="${P[i].src}" alt="${P[i].name}">`).join("");
+
+function render(){
+ let list=P.filter(p=>(cat==="All"||p.cat===cat)&&(p.name+" "+p.cat).toLowerCase().includes(term));
+ if(sort==="1")list.sort((a,b)=>(a.price||1e9)-(b.price||1e9));
+ if(sort==="2")list.sort((a,b)=>(b.price||0)-(a.price||0));
+ if(sort==="3")list.sort((a,b)=>a.name.localeCompare(b.name));
+ $("#ttl").innerHTML=(cat==="All"?"All jewellery":cat)+`<span>${list.length} pieces</span>`;
+ $("#grid").innerHTML=list.map(p=>`<article class="card"><div class="im" data-v="${p.id}"><img src="${p.src}" alt="${p.name}" loading="lazy">${p.badge?`<span class="tag">${p.badge}</span>`:""}<div class="qv">Quick view</div></div><div class="nm" data-v="${p.id}">${p.name}</div>${p.cap?`<div class="cap" dir="auto">${p.desc}</div>`:""}<div class="sub"><span>${pt(p)}</span></div><button class="add" data-add="${p.id}">Add to cart</button></article>`).join("");
+ $("#empty").style.display=list.length?"none":"block";
+}
+function renderCart(){
+ const ids=Object.keys(cart).filter(k=>cart[k]>0&&P[k]);
+ const n=ids.reduce((s,k)=>s+cart[k],0),total=ids.reduce((s,k)=>s+cart[k]*P[k].price,0);
+ $("#cnt").textContent=n;
+ $("#items").innerHTML=ids.length?ids.map(k=>{const p=P[k];return `<div class="it"><img src="${p.src}" alt=""><div>${p.name}<br><small>${pt(p)}</small><br><div class="qty"><button data-q="${k}" data-d="-1" aria-label="Less">−</button><span>${cart[k]}</span><button data-q="${k}" data-d="1" aria-label="More">+</button></div></div><button class="rm" data-rm="${k}">Remove</button></div>`}).join(""):`<p style="color:var(--mut);text-align:center;padding:60px 0">Your cart is empty.</p>`;
+ $("#df").style.display=ids.length?"grid":"none";
+ const all=ids.every(k=>P[k].price);$("#tot").textContent=all?fmt(total):"Confirmed on WhatsApp";
+ const msg="Hello, I’d like to order from styled by Shahoda:\n"+ids.map(k=>`- ${cart[k]} x ${P[k].name} ${P[k].price?` (${fmt(P[k].price*cart[k])})`:""}`).join("\n")+(all?`\n\nTotal: ${fmt(total)}`:"");
+ $("#send").href=waLink(msg);
+ save();
+}
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),1500)}
+function add(id){cart[id]=(cart[id]||0)+1;renderCart();toast("Added to cart")}
+function menu(o){$("#nav").classList.toggle("open",o);document.querySelector("header").style.zIndex=o?45:"";$("#ov").classList.toggle("show",o||$("#drawer").classList.contains("show")||$("#modal").classList.contains("show"))}
+function openCart(o){$("#drawer").classList.toggle("show",o);$("#ov").classList.toggle("show",o||$("#modal").classList.contains("show"))}
+function closeModal(){$("#modal").classList.remove("show");if(!$("#drawer").classList.contains("show"))$("#ov").classList.remove("show")}
+function view(id){
+ const p=P[id];
+ $("#modal").innerHTML=`<img src="${p.src}" alt="${p.name}"><div class="md"><button class="x" data-close aria-label="Close">×</button><div class="cat">${p.cat}</div><h2>${p.name}</h2><div class="price">${pt(p)}</div><p dir="auto">${p.desc}</p><button class="btn" data-add="${p.id}">Add to cart</button><a class="wabtn" target="_blank" rel="noopener" href="${waLink("Hello, I’m interested in the "+p.name+"."+(p.price?" Price: "+fmt(p.price)+".":""))}">Ask about this piece</a></div>`;
+ $("#modal").classList.add("show");$("#ov").classList.add("show");
+}
+document.addEventListener("click",e=>{
+ const t=e.target.closest("[data-add],[data-v],[data-c],[data-q],[data-rm],[data-close]");
+ if(!t)return;
+ const d=t.dataset;
+ if(d.add!==undefined)add(+d.add);
+ else if(d.v!==undefined)view(+d.v);
+ else if(d.c!==undefined){cat=d.c;document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.c===cat));render();menu(false);if(scrollY<300||innerWidth<=640)$("#shop").scrollIntoView()}
+ else if(d.q!==undefined){cart[d.q]=Math.max(0,(cart[d.q]||0)+ +d.d);if(!cart[d.q])delete cart[d.q];renderCart()}
+ else if(d.rm!==undefined){delete cart[d.rm];renderCart()}
+ else if(d.close!==undefined)closeModal();
+});
+$("#openCart").onclick=()=>openCart(true);
+$("#burger").onclick=()=>menu(true);
+$("#closeCart").onclick=()=>openCart(false);
+$("#ov").onclick=()=>{closeModal();openCart(false);menu(false)};
+$("#clear").onclick=()=>{cart={};renderCart()};
+$("#q").oninput=e=>{term=e.target.value.trim().toLowerCase();render()};
+$("#sort").onchange=e=>{sort=e.target.value;render()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();openCart(false);menu(false)}});
+$("#fab").href=waLink("Hello, I’d like to know more about your jewellery.");
+$("#waAbout").href=waLink("Hello, I’m looking for something specific.");
+render();renderCart();
+</script>
+</body>
+</html>
