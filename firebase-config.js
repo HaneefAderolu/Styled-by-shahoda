@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB5SKLOfrYmwAdNo8kK2-MrK7CEqsVUasU",
-  authDomain: "styled-by-shahoda.firebaseapp.com",
-  projectId: "styled-by-shahoda",
-  storageBucket: "styled-by-shahoda.firebasestorage.app",
-  messagingSenderId: "123707858644",
-  appId: "1:123707858644:web:2b5dd16df1c342d6a2e541"
+  apiKey: "AIzaSyAWAxCFR7C0OVXLUu7Qxw8Oi3V7WwCmKlQ",
+  authDomain: "styled-by-shahoda-shop.firebaseapp.com",
+  projectId: "styled-by-shahoda-shop",
+  storageBucket: "styled-by-shahoda-shop.firebasestorage.app",
+  messagingSenderId: "280745229023",
+  appId: "1:280745229023:web:69302b5f0d6287971d076a"
 };
 
 // Initialize Firebase
