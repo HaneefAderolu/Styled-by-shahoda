@@ -60,6 +60,7 @@ input{width:200px}
 footer{text-align:center;color:var(--mut);font-size:13px;padding:30px 20px 100px}
 .fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:25}
 .fab svg{width:29px;height:29px;fill:#fff}
+.nav button.navx{display:none}
 .ov{position:fixed;inset:0;background:rgba(20,15,12,.5);opacity:0;pointer-events:none;transition:.25s;z-index:40}.ov.show{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--bg);z-index:50;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .drawer.show{transform:none}
@@ -85,6 +86,8 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:30px 20px 100px
 .burger{visibility:visible;justify-self:start;padding:4px 4px 4px 0}.bar{padding-bottom:12px}
 .nav{position:fixed;top:0;left:0;bottom:0;width:min(300px,82%);background:var(--bg);z-index:50;flex-direction:column;justify-content:flex-start;gap:0;padding:calc(env(safe-area-inset-top,0px) + 22px) 22px 20px;transform:translateX(-100%);transition:transform .3s;overflow-y:auto;border-right:1px solid var(--line)}
 .nav.open{transform:none}
+.nav button.navx{display:block;position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;width:44px;height:44px;padding:0;border:0;font:300 34px/44px Karla,sans-serif;text-align:center;color:var(--ink);transition:color .2s,transform .2s}
+.nav button.navx:hover{color:var(--acc);transform:rotate(90deg)}
 .nav::before{content:"Shop by type";font:500 11px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);padding-bottom:10px;border-bottom:1px solid var(--line)}
 .nav button{font:22px "Gilda Display",Georgia,serif;letter-spacing:0;padding:15px 0;border-bottom:1px solid var(--line);text-align:left;color:var(--ink)}
 .nav button.on{color:var(--acc);border-bottom-color:var(--line)}}
@@ -162,7 +165,7 @@ let cats;
 function buildNav(list){
  cats=["All",...(list||[...new Set(P.map(p=>p.cat))])];
  if(!cats.includes(cat))cat="All";
- $("#nav").innerHTML=cats.map(c=>`<button data-c="${c}" class="${c===cat?"on":""}">${c==="All"?"Everything":c}</button>`).join("");
+ $("#nav").innerHTML='<button class="navx" id="navx" aria-label="Close menu">×</button>'+cats.map(c=>`<button data-c="${c}" class="${c===cat?"on":""}">${c==="All"?"Everything":c}</button>`).join("");
  $("#tiles").innerHTML=["Watches","Bangles and Cuffs","Necklaces"].map(c=>P.findIndex(x=>x.cat===c)).filter(i=>i>=0).map(i=>`<img src="${P[i].src}" alt="${P[i].name}">`).join("");
 }
 buildNav();
@@ -210,6 +213,7 @@ document.addEventListener("click",e=>{
 });
 $("#openCart").onclick=()=>openCart(true);
 $("#burger").onclick=()=>menu(true);
+document.addEventListener("click",e=>{if(e.target.closest("#navx"))menu(false)});
 $("#closeCart").onclick=()=>openCart(false);
 $("#ov").onclick=()=>{closeModal();openCart(false);menu(false)};
 $("#clear").onclick=()=>{cart={};renderCart()};
