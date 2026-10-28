@@ -68,7 +68,7 @@ function form(p){
 }
 function cpanel(){
  const o=box(),used=c=>P.some(p=>p.cat===c);
- o.innerHTML='<div class="a-card" style="max-width:520px;margin:30px auto"><h2>Categories</h2>'+CATS.map(c=>'<div class="a-row"><div>'+esc(c)+' <small>('+P.filter(p=>p.cat===c).length+')</small></div>'+'<button class="r" data-x="'+esc(c)+'">Delete</button>'+'</div>').join("")+'<input id="k-n" placeholder="New category name"><button id="k-a">Add category</button><button class="g" id="k-t">Trash ("+tcount()+")</button><button class="g" id="k-x">Back</button></div>';
+ o.innerHTML='<div class="a-card" style="max-width:520px;margin:30px auto"><h2>Categories</h2>'+CATS.map(c=>'<div class="a-row"><div>'+esc(c)+' <small>('+P.filter(p=>p.cat===c).length+')</small></div>'+'<button class="r" data-x="'+esc(c)+'">Delete</button>'+'</div>').join("")+'<input id="k-n" placeholder="New category name"><button id="k-a">Add category</button><button class="g" id="k-t">Trash ('+tcount()+')</button><button class="g" id="k-x">Back</button></div>';
  $("#k-t").onclick=()=>tpanel(cpanel);
  $("#k-x").onclick=panel;
  $("#k-a").onclick=()=>{const n=$("#k-n").value.trim().replace(/"/g,"");if(n&&!CATS.includes(n))savec([...CATS,n])};
