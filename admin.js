@@ -1,7 +1,9 @@
 (function(){
 const C=window.FIREBASE_CONFIG;
 if(!C||!C.apiKey){const w=()=>{if(location.hash==="#admin")alert("Admin is not set up: firebase-config.js is empty or was not found. See README.md.")};addEventListener("hashchange",w);w();return}
-const STATIC=P.slice();let db,auth,user=null,CATS=[],REMOTE=false;
+const STATIC=P.slice();let db,auth,user=null,CATS=[],REMOTE=false,TP=[],TRASH=[];
+const isCT=p=>p.via==="cat"||(TRASH.some(t=>t.name===p.cat)&&!CATS.includes(p.cat));
+const tcount=()=>TRASH.length+TP.filter(p=>!isCT(p)).length;
 const css=document.createElement("style");
 css.textContent="#adm{display:none;position:fixed;inset:0;z-index:99;background:var(--bg);color:var(--ink);overflow:auto;font:15px Karla,system-ui,sans-serif;padding:0 20px 60px}#adm h2{font:400 30px 'Gilda Display',Georgia,serif;margin:0 0 14px}.a-wrap{max-width:860px;margin:0 auto}.a-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line);margin-bottom:22px}.a-brand{font:400 26px 'Gilda Display',Georgia,serif}.a-brand small{display:block;font:11px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}#adm label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-top:14px}#adm input,#adm select,#adm textarea{display:block;width:100%;box-sizing:border-box;margin:6px 0 4px;padding:13px 14px;background:var(--card);color:var(--ink);border:1px solid var(--line);font:inherit;border-radius:0}#adm input:focus,#adm select:focus,#adm textarea:focus{outline:0;border-color:var(--ink)}#adm button{padding:13px 22px;margin:4px 6px 4px 0;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;font:500 13px Karla,sans-serif;letter-spacing:.08em;text-transform:uppercase}#adm button.g{background:transparent;color:var(--ink);border-color:var(--line)}#adm button.r{background:transparent;color:var(--acc);border-color:var(--acc)}#adm button.a-link{background:none;border:0;padding:0;margin:8px 0;color:var(--mut);text-decoration:underline;text-transform:none;letter-spacing:0;font-size:13px}.a-card{background:var(--card);border:1px solid var(--line);padding:34px 30px;max-width:440px;margin:50px auto}.a-row{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.a-row img{width:56px;height:56px;object-fit:cover}.a-row div{flex:1;min-width:0}.a-row small{color:var(--mut)}.pw{position:relative}.pw input{padding-right:50px}#adm .pw button{position:absolute;right:4px;top:7px;margin:0;padding:8px 10px;background:none;border:0;color:var(--mut);line-height:0}#a-m,#f-m{color:var(--acc);font-size:13px;min-height:18px}.a-act{display:flex;gap:6px}@media(max-width:640px){#adm{padding:0 14px 40px}.a-bar{padding:16px 0;gap:12px}.a-brand{font-size:22px}.a-bar>div:last-child{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}#adm .a-bar button{margin:0;padding:12px 6px;font-size:12px}.a-card{margin:16px auto!important;padding:22px 18px}#adm input,#adm select,#adm textarea{font-size:16px}.a-card>button:not(.a-link){width:100%;margin:8px 0 0}.a-row{flex-wrap:wrap;gap:10px}.a-row img{width:48px;height:48px}.a-act{display:flex;gap:8px;width:100%}.a-act button{flex:1;margin:0;padding:11px 6px}}";document.head.appendChild(css);
 const load=src=>new Promise((r,j)=>{const e=document.createElement("script");e.src=src;e.onload=r;e.onerror=j;document.head.appendChild(e)});
@@ -17,9 +19,9 @@ async function init(){
 }
 async function refresh(){
  try{
-  const [ps,m]=await Promise.all([db.collection("products").get(),db.doc("meta/categories").get()]);
-  REMOTE=!ps.empty;
-  if(REMOTE){P=ps.docs.map(d=>d.data());P.forEach(p=>p.src=p.img);P.sort((a,b)=>(b.order||0)-(a.order||0))}
+  const [ps,m,t]=await Promise.all([db.collection("products").get(),db.doc("meta/categories").get(),db.doc("meta/trash").get()]);
+  REMOTE=!ps.empty;TRASH=t.exists?t.data().list:[];
+  if(REMOTE){const all=ps.docs.map(d=>d.data());TP=all.filter(p=>p.trashed);P=all.filter(p=>!p.trashed);P.forEach(p=>p.src=p.img);P.sort((a,b)=>(b.order||0)-(a.order||0))}
   CATS=m.exists?m.data().list:[...new Set(P.map(p=>p.cat))];
  }catch(e){console.error(e)}
  buildNav(CATS.filter(c=>P.some(p=>p.cat===c)));render();renderCart();
@@ -37,12 +39,12 @@ function panel(){
   $("#a-eye").onclick=()=>{const p=$("#a-p"),h=p.type==="password";p.type=h?"text":"password";$("#a-eye").innerHTML=h?`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.6C3.6 8.4 2 12 2 12s3.6 7 10 7c1.6 0 3-.4 4.200-1M9.900 9.900a3 3 0 0 0 4.200 4.200"/></svg>`:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>`;$("#a-eye").setAttribute("aria-label",h?"Hide password":"Show password")};
   $("#a-f").onclick=async()=>{const e=$("#a-e").value.trim(),m=$("#a-m");if(!e){m.textContent="Type your email above first.";return}try{await auth.sendPasswordResetEmail(e);m.textContent="If that email has an admin account, a reset link is on its way. Check spam too."}catch(x){m.textContent=x.code==="auth/invalid-email"?"That email does not look right.":"Could not send the email. Try again in a minute."}};
   $("#a-x").onclick=closeA;return}
- o.innerHTML='<div class="a-wrap"><div class="a-bar"><div class="a-brand"><small>Styles by</small>Shahoda</div><div><button id="a-n">Add product</button><button class="g" id="a-c">Categories</button><button class="g" id="a-o">Sign out</button><button class="g" id="a-x">Close</button></div></div><p style="color:var(--mut);margin:0 0 16px">Signed in as '+esc(user.email)+'</p>'+(REMOTE?"":'<p>The shop is still showing the built-in products. <button id="a-i">Import the '+STATIC.length+' current products so I can edit them</button></p>')
+ o.innerHTML='<div class="a-wrap"><div class="a-bar"><div class="a-brand"><small>Styles by</small>Shahoda</div><div><button id="a-n">Add product</button><button class="g" id="a-c">Categories</button><button class="g" id="a-t">Trash ('+tcount()+')</button><button class="g" id="a-o">Sign out</button><button class="g" id="a-x">Close</button></div></div><p style="color:var(--mut);margin:0 0 16px">Signed in as '+esc(user.email)+'</p>'+(REMOTE?"":'<p>The shop is still showing the built-in products. <button id="a-i">Import the '+STATIC.length+' current products so I can edit them</button></p>')
   +'<div id="a-l">'+P.map(p=>'<div class="a-row"><img src="'+esc(p.src)+'"><div><b>'+esc(p.name)+'</b><br><small>'+esc(p.cat)+' · '+(p.price?p.price+" "+CURRENCY:"no price")+'</small></div>'+(REMOTE?'<span class="a-act"><button data-e="'+p.id+'">Edit</button><button class="r" data-d="'+p.id+'">Delete</button></span>':"")+'</div>').join("")+'</div></div>';
- $("#a-x").onclick=closeA;$("#a-o").onclick=()=>auth.signOut();$("#a-n").onclick=()=>form(null);$("#a-c").onclick=cpanel;
+ $("#a-x").onclick=closeA;$("#a-o").onclick=()=>auth.signOut();$("#a-n").onclick=()=>form(null);$("#a-c").onclick=cpanel;$("#a-t").onclick=()=>tpanel(panel);
  if($("#a-i"))$("#a-i").onclick=imp;
  o.querySelectorAll("[data-e]").forEach(b=>b.onclick=()=>form(G(b.dataset.e)));
- o.querySelectorAll("[data-d]").forEach(b=>b.onclick=async()=>{if(confirm("Delete this product?")){await db.collection("products").doc(b.dataset.d).delete();await refresh();panel()}});
+ o.querySelectorAll("[data-d]").forEach(b=>b.onclick=async()=>{if(confirm("Move this product to the trash?")){await db.collection("products").doc(b.dataset.d).update({trashed:true});await refresh();panel()}});
 }
 async function imp(){
  const b=db.batch();STATIC.forEach((p,i)=>b.set(db.collection("products").doc(String(p.id)),{id:p.id,name:p.name,cat:p.cat,price:p.price||null,desc:p.desc||"",cap:p.cap?1:0,img:p.img,badge:p.badge||"",order:1000-i}));
@@ -66,11 +68,38 @@ function form(p){
 }
 function cpanel(){
  const o=box(),used=c=>P.some(p=>p.cat===c);
- o.innerHTML='<div class="a-card" style="max-width:520px;margin:30px auto"><h2>Categories</h2>'+CATS.map(c=>'<div class="a-row"><div>'+esc(c)+' <small>('+P.filter(p=>p.cat===c).length+')</small></div>'+(used(c)?"":'<button class="r" data-x="'+esc(c)+'">Delete</button>')+'</div>').join("")+'<input id="k-n" placeholder="New category name"><button id="k-a">Add category</button><button class="g" id="k-x">Back</button></div>';
+ o.innerHTML='<div class="a-card" style="max-width:520px;margin:30px auto"><h2>Categories</h2>'+CATS.map(c=>'<div class="a-row"><div>'+esc(c)+' <small>('+P.filter(p=>p.cat===c).length+')</small></div>'+'<button class="r" data-x="'+esc(c)+'">Delete</button>'+'</div>').join("")+'<input id="k-n" placeholder="New category name"><button id="k-a">Add category</button><button class="g" id="k-t">Trash ("+tcount()+")</button><button class="g" id="k-x">Back</button></div>';
+ $("#k-t").onclick=()=>tpanel(cpanel);
  $("#k-x").onclick=panel;
- const savec=async l=>{await db.doc("meta/categories").set({list:l});await refresh();cpanel()};
  $("#k-a").onclick=()=>{const n=$("#k-n").value.trim().replace(/"/g,"");if(n&&!CATS.includes(n))savec([...CATS,n])};
- o.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>savec(CATS.filter(c=>c!==b.dataset.x)));
+ o.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>delCat(b.dataset.x));
+}
+const savec=async l=>{await db.doc("meta/categories").set({list:l});await refresh();cpanel()};
+function delCat(c){
+ const mine=P.filter(p=>p.cat===c),others=CATS.filter(x=>x!==c);
+ const trashList=()=>[...TRASH.filter(t=>t.name!==c),{name:c,ts:Date.now()}];
+ const go=async fn=>{const m=$("#m-s");if(m)m.textContent="Working...";try{const b=db.batch();mine.forEach(p=>fn(b,db.collection("products").doc(String(p.id))));b.set(db.doc("meta/categories"),{list:others});b.set(db.doc("meta/trash"),{list:trashList()});await b.commit();await refresh();cpanel()}catch(e){if(m)m.textContent="Could not finish: "+e.message}};
+ if(!mine.length){go(()=>{});return}
+ if(!REMOTE){alert("Import the current products first (button on the main admin page), then delete the category.");return}
+ const o=box();
+ o.innerHTML='<div class="a-card" style="max-width:520px;margin:30px auto"><h2>Delete "'+esc(c)+'"</h2><p>This category has '+mine.length+' product'+(mine.length>1?"s":"")+'. What should happen to them?</p>'+(others.length?'<label>Move them to</label><select id="m-t">'+others.map(x=>'<option>'+esc(x)+'</option>').join("")+'</select><button id="m-m">Move them and delete the category</button>':"")+'<button class="r" id="m-d">Delete the category and its products</button><p style="color:var(--mut);font-size:13px">The category goes to the trash. If you delete its products too, they wait in the trash and come back with it if you restore it.</p><button class="g" id="m-x">Cancel</button><p id="m-s"></p></div>';
+ $("#m-x").onclick=cpanel;
+ if($("#m-m"))$("#m-m").onclick=()=>{const t=$("#m-t").value;go((b,r)=>b.update(r,{cat:t}))};
+ $("#m-d").onclick=()=>go((b,r)=>b.update(r,{trashed:true,via:"cat"}));
+}
+function tpanel(back){
+ back=back||cpanel;
+ const o=box(),ct=TP.filter(isCT),pt=TP.filter(p=>!isCT(p));
+ const catRows=TRASH.map((t,i)=>{const n=ct.filter(p=>p.cat===t.name).length;return '<div class="a-row"><div>'+esc(t.name)+' <small>(category, '+n+' product'+(n===1?"":"s")+')</small></div><span class="a-act"><button data-r="'+i+'">Restore</button><button class="r" data-f="'+i+'">Delete forever</button></span></div>'}).join("");
+ const prodRows=pt.map(p=>'<div class="a-row"><img src="'+esc(p.src||p.img)+'"><div><b>'+esc(p.name)+'</b><br><small>from '+esc(p.cat)+'</small></div><span class="a-act"><button data-pr="'+p.id+'">Restore</button><button class="r" data-pf="'+p.id+'">Delete forever</button></span></div>').join("");
+ o.innerHTML='<div class="a-card" style="max-width:520px;margin:30px auto"><h2>Trash</h2>'+((catRows||prodRows)?catRows+prodRows:'<p style="color:var(--mut)">The trash is empty.</p>')+'<button class="g" id="t-x">Back</button><p id="t-m"></p></div>';
+ $("#t-x").onclick=()=>back();
+ const run=async fn=>{try{const b=db.batch();fn(b);await b.commit();await refresh();tpanel(back)}catch(e){$("#t-m").textContent="Could not finish: "+e.message}};
+ const ref=id=>db.collection("products").doc(String(id));
+ o.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const t=TRASH[+b.dataset.r];run(x=>{ct.filter(p=>p.cat===t.name).forEach(p=>x.update(ref(p.id),{trashed:false,via:""}));x.set(db.doc("meta/categories"),{list:CATS.includes(t.name)?CATS:[...CATS,t.name]});x.set(db.doc("meta/trash"),{list:TRASH.filter(y=>y.name!==t.name)})})});
+ o.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{const t=TRASH[+b.dataset.f],mine=ct.filter(p=>p.cat===t.name);if(confirm('Delete "'+t.name+'"'+(mine.length?" and its "+mine.length+" product(s)":"")+" for good?"))run(x=>{mine.forEach(p=>x.delete(ref(p.id)));x.set(db.doc("meta/trash"),{list:TRASH.filter(y=>y.name!==t.name)})})});
+ o.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>{const p=pt.find(q=>q.id==b.dataset.pr);run(x=>{x.update(ref(p.id),{trashed:false});if(!CATS.includes(p.cat))x.set(db.doc("meta/categories"),{list:[...CATS,p.cat]})})});
+ o.querySelectorAll("[data-pf]").forEach(b=>b.onclick=()=>{if(confirm("Delete this product for good?"))run(x=>x.delete(ref(b.dataset.pf)))});
 }
 init().then(()=>{if(location.hash==="#admin")panel()});
 })();
